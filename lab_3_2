@@ -1,0 +1,30 @@
+.model tiny
+.data
+
+array1 dw 8001h, 9001h, 8123h, 8123h, 1234h, 8901h, 8765h, 9123h, 9231h, 7156h
+count db 10
+; neg1 db 0
+
+.code
+.startup
+
+mov cl, count
+mov dx, 00h
+lea si, array1
+x1: mov ax, [si]
+    add si, 0002h
+    dec cl
+    cmp cl, -1
+    je x3
+    cmp ax, 0
+    jl x2
+    jmp x1
+
+
+x2: inc dx
+    jmp x1
+
+x3: 
+
+.exit
+end
