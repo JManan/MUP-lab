@@ -1,0 +1,34 @@
+.model tiny
+.data
+dat1 db 'wasitacatisaw'
+dat1length db 0dh
+res dw 00h
+.code
+.startup
+    lea di, res
+    mov di, 00h
+    mov dx, 00h
+    lea si, dat1length
+    mov cx, [si];
+    mov si, 00h
+    lea si, dat1
+    mov di, si
+    add di, 0eh
+    cld
+x1: cmp si, di
+    jae x3
+    dec di
+    dec di
+    cmpsb
+    je x1
+    mov ax, 00h
+    lea si, res
+    mov [si], ax
+    jmp x4
+x3: lea si, res
+    mov ax, 01h
+    mov [si], ax
+
+x4:
+.exit
+end
