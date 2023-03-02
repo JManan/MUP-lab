@@ -1,0 +1,33 @@
+model tiny
+.data
+
+    max1 db 32
+    act1 db ?
+    inp1 db 32 dup(0)
+
+.code
+.startup
+    lea dx, max1
+    mov ah, 0ah
+    int 21h
+    mov cl, act1
+    lea bx, inp1
+
+x1: cmp cx, 00h
+    je x2
+    mov dx, [bx]
+    sub dx, 20h
+    mov [bx], dx
+    inc bx
+    dec cx
+    jmp x1
+
+x2:
+    mov ax, '$'
+    mov [bx], ax
+    lea dx, inp1
+    mov ah, 09h
+    int 21h
+
+.exit
+end
