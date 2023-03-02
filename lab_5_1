@@ -1,0 +1,22 @@
+.model tiny
+.data
+    str1 db 'the entered key is a$'
+    str2 db 'not a$'
+.code
+.startup
+    mov ah, 08h
+    int 21h
+    cmp al, 61h
+    je x1
+    jmp x2
+x1: lea dx, str1
+    mov ah, 09h
+    int 21h
+    jmp x3
+
+x2: lea dx, str2
+    mov ah, 09h
+    int 21h
+x3:
+.exit
+end
