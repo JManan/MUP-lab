@@ -1,0 +1,48 @@
+.model tiny
+.data
+
+fname db 'manan.txt', 0
+handle dw ?
+str1 db 'Enter your name$'
+
+max1 db 40
+act1 db ?
+name db 32dup(0)
+
+.code   
+.startup
+
+; print line
+    lea si, act1
+    lea dx, str1
+    mov ah, 09h
+    int 21h
+; input name
+    lea dx, max1
+    mov ah, 0ah
+    int 21h
+; create a file
+    mov ah, 3ch
+    lea dx, fname
+    mov cl, 01h
+    int 21h
+    mov handle, ax
+; ; open a file
+    mov ah, 3dh
+    mov al, 1h
+    lea dx, fname
+    int 21h
+    mov handle, ax
+; ; write in file
+
+    mov ah, 40h
+    mov bx, handle
+    mov cl, act1
+    lea dx, act1
+    add dx, 01h
+    int 21h
+; ; close file
+    mov ah, 3eh
+    int 21h
+.exit
+end
